@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import styled from '@emotion/styled';
+import { obtenerDiferenciaYear, calcularMarca, obtenerPlan } from '../helper';
 
 const Campo = styled.div`
     display: flex;
@@ -74,6 +75,23 @@ const Form = () => {
         }
 
         setError(false);
+
+        // Valor base
+        let resultado = 2000;
+
+        // Obtiene los años de diferencia con el actual
+        const diferencia = obtenerDiferenciaYear(year);
+
+        // Resta 3% por cada año de antigüedad
+        resultado -= ((diferencia * 3) * resultado) / 100;
+
+        // Calcula el aumento según la marca
+        resultado = resultado * calcularMarca(marca);
+
+        // Calcula el aumento del plan
+        resultado = parseFloat(resultado*obtenerPlan(plan)).toFixed(2);
+
+        console.log(resultado);
     };
 
     return (
