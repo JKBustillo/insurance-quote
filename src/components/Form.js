@@ -51,7 +51,7 @@ const Error = styled.div`
     margin-bottom: 2rem;
 `;
 
-const Form = () => {
+const Form = ({ setResumen }) => {
     const [datos, setDatos] = useState({
         marca: '',
         year: '',
@@ -91,7 +91,11 @@ const Form = () => {
         // Calcula el aumento del plan
         resultado = parseFloat(resultado*obtenerPlan(plan)).toFixed(2);
 
-        console.log(resultado);
+        // Pasar resultado al App.js
+        setResumen({
+            cotizacion: resultado,
+            datos
+        });
     };
 
     return (
