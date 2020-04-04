@@ -41,12 +41,22 @@ const Boton = styled.button`
     }
 `;
 
+const Error = styled.div`
+    background-color: red;
+    color: white;
+    padding: 1rem;
+    width: 100%;
+    text-align: center;
+    margin-bottom: 2rem;
+`;
+
 const Form = () => {
     const [datos, setDatos] = useState({
         marca: '',
         year: '',
         plan: '',
     });
+    const [error, setError] = useState(false);
 
     const { marca, year, plan } = datos;
 
@@ -54,8 +64,22 @@ const Form = () => {
         setDatos({...datos, [e.target.name]: e.target.value });
     };
 
+    // Cuando se haga submit
+    const cotizarSeguro = e => {
+        e.preventDefault();
+
+        if (marca.trim() === '' || year.trim() === '' || plan.trim() === '') {
+            setError(true);
+            return;
+        }
+
+        setError(false);
+    };
+
     return (
-        <form>
+        <form onSubmit={cotizarSeguro}>
+            { error ? <Error>Todos los campos son obligatorios.</Error> : null }
+
             <Campo>
                 <Label>Marca</Label>
                 <Select
@@ -107,7 +131,7 @@ const Form = () => {
                     onChange={getInfo}
                 /> Completo
             </Campo>
-            <Boton type="button">Cotizar</Boton>
+            <Boton type="submit">Cotizar</Boton>
         </form>
     );
 }
