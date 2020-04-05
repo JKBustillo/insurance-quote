@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from '@emotion/styled';
+import PropTypes from 'prop-types';
 import { primerMayus } from '../helper';
 
 const ContenedorResumen = styled.div`
@@ -29,4 +30,8 @@ const Resumen = ({ datos }) => {
     );
 }
  
+Resumen.propTypes = {
+    datos: PropTypes.object.isRequired,
+};
+
 export default Resumen;
